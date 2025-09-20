@@ -49,16 +49,28 @@ function App() {
     ));
   };
 
+  const incompleteTasks = tasks.filter(task => !task.isCompleted);
+  const completedTasks = tasks.filter(task => task.isCompleted);
+
   return (
     <div>
       <h1>Tasks</h1>
-      <AddTask onAddTask={onAddTask} />
+      <AddTask onAddTask={onAddTask} />      
+      
       <TaskList>
-        <TaskListHeader count={tasks.length} />
-        {tasks.map((task) => (
+        <TaskListHeader label="Pending" count={incompleteTasks.length} />
+        {incompleteTasks.map((task) => (
           <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} />
         ))}
       </TaskList>
+      
+      <TaskList>
+        <TaskListHeader label="Completed" count={completedTasks.length} />
+        {completedTasks.map((task) => (
+          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} />
+        ))}
+      </TaskList>
+      
     </div>
   );
 }
