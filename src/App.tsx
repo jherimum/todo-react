@@ -54,7 +54,7 @@ function App() {
 
   return (
     <div>
-      <h1>Tasks</h1>
+      <h1>Tasks: {tasks.length}</h1>
       <AddTask onAddTask={onAddTask} />      
       
       <TaskList>
