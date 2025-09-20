@@ -8,27 +8,22 @@ import TaskListHeader from './TaskListHeader';
 const STORAGE_KEY = 'todo-app-tasks';
 
 function App() {
-  const [tasks, setTasks] = React.useState(() => {
+  const [tasks, setTasks] = React.useState<Task[]>(() => {
     const saved_tasks = localStorage.getItem(STORAGE_KEY);
     if (saved_tasks) {
         const parsed = JSON.parse(saved_tasks);
-        parsed.map((task: any) => ({
+        return parsed.map((task: any) => ({
             ...task,
             createdAt: new Date(task.createdAt),
             completedAt: task.completedAt ? new Date(task.completedAt) : undefined,
         }));
-        return parsed as Task[];
     }
-    const tasks: Task [] = [];
-    return tasks;
+    return [];
   });
 
   React.useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  });
-  
-
-  
+  }, [tasks]);  
 
   const onAddTask = (taskName: string) => {
     setTasks([
@@ -42,6 +37,18 @@ function App() {
     ]);
   };
 
+  const toggleComplete = (id: number) => {
+    setTasks(tasks.map(task => 
+      task.id === id 
+        ? { 
+            ...task, 
+            isCompleted: !task.isCompleted,
+            completedAt: !task.isCompleted ? new Date() : undefined
+          }
+        : task
+    ));
+  };
+
   return (
     <div>
       <h1>Tasks</h1>
@@ -49,7 +56,7 @@ function App() {
       <TaskList>
         <TaskListHeader count={tasks.length} />
         {tasks.map((task) => (
-          <TaskListItem key={task.id}>{task.title}</TaskListItem>
+          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} />
         ))}
       </TaskList>
     </div>
