@@ -49,6 +49,10 @@ function App() {
     ));
   };
 
+  const deleteTask = (id: number) => {
+    setTasks(tasks.filter(task => task.id !== id));
+  };
+
   const incompleteTasks = tasks.filter(task => !task.isCompleted);
   const completedTasks = tasks.filter(task => task.isCompleted);
 
@@ -60,14 +64,14 @@ function App() {
       <TaskList>
         <TaskListHeader label="Pending" count={incompleteTasks.length} />
         {incompleteTasks.map((task) => (
-          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} />
+          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} onDelete={deleteTask} />
         ))}
       </TaskList>
       
       <TaskList>
         <TaskListHeader label="Completed" count={completedTasks.length} />
         {completedTasks.map((task) => (
-          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} />
+          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} onDelete={deleteTask} />
         ))}
       </TaskList>
       

@@ -3,13 +3,14 @@ import type { Task } from './types';
 interface TaskListItemProps {
   task: Task;
   onToggleComplete: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
-export default function TaskListItem({ task, onToggleComplete }: TaskListItemProps) {
+export default function TaskListItem({ task, onToggleComplete, onDelete }: TaskListItemProps) {
   return (
     <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
       
-      <span style={{ textDecoration: task.isCompleted ? 'line-through' : 'none' }}>
+      <span style={{ textDecoration: task.isCompleted ? 'line-through' : 'none', flex: 1 }}>
         {task.title}
       </span>
 
@@ -25,6 +26,20 @@ export default function TaskListItem({ task, onToggleComplete }: TaskListItemPro
         }}
       >
         {task.isCompleted ? '✓' : '○'}
+      </button>
+
+      <button 
+        onClick={() => onDelete(task.id)}
+        style={{
+          padding: '4px 8px',
+          backgroundColor: '#ff4444',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}
+      >
+        ×
       </button>
     </li>
   );
