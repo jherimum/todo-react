@@ -1,9 +1,22 @@
 import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, Container, Typography, Box, Paper } from '@mui/material';
 import type { Task } from './types'; 
 import  AddTask from './AddTask';
 import TaskList from './TaskList'; 
 import TaskListItem from './TaskListItem';
 import TaskListHeader from './TaskListHeader';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 const STORAGE_KEY = 'todo-app-tasks';
 
@@ -57,25 +70,43 @@ function App() {
   const completedTasks = tasks.filter(task => task.isCompleted);
 
   return (
-    <div>
-      <h1>Tasks: {tasks.length}</h1>
-      <AddTask onAddTask={onAddTask} />      
-      
-      <TaskList>
-        <TaskListHeader label="Pending" count={incompleteTasks.length} />
-        {incompleteTasks.map((task) => (
-          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} onDelete={deleteTask} />
-        ))}
-      </TaskList>
-      
-      <TaskList>
-        <TaskListHeader label="Completed" count={completedTasks.length} />
-        {completedTasks.map((task) => (
-          <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} onDelete={deleteTask} />
-        ))}
-      </TaskList>
-      
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+          <Typography variant="h3" component="h1" gutterBottom align="center" color="primary">
+            My Todo App
+          </Typography>
+          <Typography variant="subtitle1" align="center" color="text.secondary" sx={{ mb: 4 }}>
+            Total tasks: {tasks.length}
+          </Typography>
+          
+          <Box sx={{ mb: 4 }}>
+            <AddTask onAddTask={onAddTask} />
+          </Box>
+          
+          <Box sx={{ mb: 4 }}>
+            <TaskList>
+              <TaskListHeader label="Pending" count={incompleteTasks.length} />
+              {incompleteTasks.map((task) => (
+                <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} onDelete={deleteTask} />
+              ))}
+            </TaskList>
+          </Box>
+          
+          {completedTasks.length > 0 && (
+            <Box>
+              <TaskList>
+                <TaskListHeader label="Completed" count={completedTasks.length} />
+                {completedTasks.map((task) => (
+                  <TaskListItem key={task.id} task={task} onToggleComplete={toggleComplete} onDelete={deleteTask} />
+                ))}
+              </TaskList>
+            </Box>
+          )}
+        </Paper>
+      </Container>
+    </ThemeProvider>
   );
 }
 

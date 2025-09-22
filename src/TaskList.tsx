@@ -1,3 +1,5 @@
+import { Box } from '@mui/material';
+
 type TaskListProps = {
   header?: React.ReactNode;
 };
@@ -7,9 +9,11 @@ export default function TaskList({
   children,
 }: React.PropsWithChildren<TaskListProps>) {
   return (
-    <>
+    <Box>
       {header}
-      <ul>{children}</ul>
-    </>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        {children}
+      </Box>
+    </Box>
   );
 }

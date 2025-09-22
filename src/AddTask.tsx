@@ -1,4 +1,6 @@
 import React from "react";
+import { TextField, Button, Box } from '@mui/material';
+import { Add as AddIcon } from '@mui/icons-material';
 
 type AddTaskProps = {
     onAddTask: (taskName: string) => void;
@@ -22,17 +24,24 @@ export default function AddTask({
   };
 
   return (
-    <>
-        <form onSubmit={handleAddTask}>
-          <label htmlFor="task-input">Add Task: </label>
-          <input
-              required
-              id="task-input"
-              value={taskName}
-              onChange={(e) => setTaskName(e.target.value)}
-          />
-          <button>Add</button>
-        </form>
-    </>
+    <Box component="form" onSubmit={handleAddTask} sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+      <TextField
+        fullWidth
+        label="Add a new task"
+        variant="outlined"
+        value={taskName}
+        onChange={(e) => setTaskName(e.target.value)}
+        required
+        placeholder="Enter your task here..."
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        startIcon={<AddIcon />}
+        sx={{ height: '56px', minWidth: '120px' }}
+      >
+        Add Task
+      </Button>
+    </Box>
   );
 }
