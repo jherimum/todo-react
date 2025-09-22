@@ -24,6 +24,7 @@ export default function TaskListItem({ task, onToggleComplete, onDelete }: TaskL
           onClick={() => onToggleComplete(task.id)}
           color={task.isCompleted ? 'success' : 'default'}
           sx={{ '&:hover': { transform: 'scale(1.1)' } }}
+          aria-label={task.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
         >
           {task.isCompleted ? <CheckCircle /> : <RadioButtonUnchecked />}
         </IconButton>
@@ -59,6 +60,7 @@ export default function TaskListItem({ task, onToggleComplete, onDelete }: TaskL
               color: 'white'
             } 
           }}
+          aria-label="Delete task"
         >
           <Delete />
         </IconButton>
