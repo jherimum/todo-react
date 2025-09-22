@@ -1,69 +1,139 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Todo App
 
-Currently, two official plugins are available:
+A modern, responsive todo application built with React, TypeScript, and Material-UI. Features a clean interface with task management capabilities including adding, completing, deleting tasks, and persistent localStorage storage.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- ✅ Add new tasks
+- ✅ Mark tasks as complete/incomplete
+- ✅ Delete tasks
+- ✅ Separate pending and completed task sections
+- ✅ Persistent storage with localStorage
+- ✅ Responsive Material-UI design
+- ✅ Smooth animations and hover effects
+- ✅ Accessibility-friendly interface
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Material-UI (MUI)** - Component library and theming
+- **Vite** - Build tool and development server
+- **Vitest** - Testing framework
+- **Docker** - Containerization
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+- Node.js 18+ 
+- npm or yarn
+- Docker (optional, for containerized deployment)
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd todo-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
 ```
+
+### 3. Run the development server
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+## Available Scripts
+
+### Development
+
+```bash
+# Start development server
+npm run dev
+
+# Run tests
+npm test
+
+# Run linting
+npm run lint
+```
+
+### Production
+
+```bash
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Docker Deployment
+
+### Build and run with Docker
+
+```bash
+# Build the Docker image
+docker build -t todo-app .
+
+# Run the container
+docker run -d -p 3000:80 --name todo-app-container todo-app
+```
+
+The app will be available at `http://localhost:3000`
+
+### Stop the container
+
+```bash
+docker stop todo-app-container
+docker rm todo-app-container
+```
+
+## Project Structure
+
+```
+src/
+├── components/           # Reusable components
+│   ├── AddTask.tsx      # Add new task form
+│   ├── TaskList.tsx     # Task list container
+│   ├── TaskListHeader.tsx # Section headers with counts
+│   └── TaskListItem.tsx # Individual task item
+├── App.tsx              # Main application component
+├── App.test.tsx         # Application tests
+├── types.ts             # TypeScript type definitions
+├── main.tsx            # Application entry point
+└── index.css           # Global styles
+```
+
+## Testing
+
+The app includes comprehensive tests covering:
+
+- Component rendering
+- User interactions
+- Task management functionality
+- Form validation
+
+Run tests with:
+
+```bash
+npm test
+```
+
+## Docker Configuration
+
+The app uses a multi-stage Docker build:
+
+1. **Build stage**: Compiles the React app using Node.js
+2. **Production stage**: Serves static files using Nginx
+
+This approach results in a lightweight production image optimized for performance.
