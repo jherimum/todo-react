@@ -2,10 +2,10 @@ import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, Container, Typography, Box, Paper } from '@mui/material';
 import type { Task } from './types'; 
-import  AddTask from './AddTask';
-import TaskList from './TaskList'; 
-import TaskListItem from './TaskListItem';
-import TaskListHeader from './TaskListHeader';
+import  AddTask from './components/AddTask';
+import TaskList from './components/TaskList'; 
+import TaskListItem from './components/TaskListItem';
+import TaskListHeader from './components/TaskListHeader';
 
 const theme = createTheme({
   palette: {

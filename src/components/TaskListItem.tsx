@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, IconButton, Box, Chip } from '@mui/material';
 import { CheckCircle, RadioButtonUnchecked, Delete } from '@mui/icons-material';
-import type { Task } from './types';
+import type { Task } from '../types';
 
 interface TaskListItemProps {
   task: Task;
